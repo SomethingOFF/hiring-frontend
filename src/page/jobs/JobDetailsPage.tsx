@@ -15,7 +15,10 @@ const JobDetailsPage = ({
   const { user } = useSelector((state: RootState) => state.user);
   const onClickhandler = async () => {
     try {
-      const config = { headers: { "Content-Type": "application/json" } };
+      const config = {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      };
       const data = { jobId: job._id };
       await axios.put(`${API_URL}/job/apply`, data, config);
       setActive(false);

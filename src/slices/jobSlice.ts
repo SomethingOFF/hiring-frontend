@@ -25,7 +25,7 @@ export const createJob = createAsyncThunk<Job, { name: string; description: stri
     'job/jobposting',
     async (jobData, thunkAPI) => {
         try {
-            const config = { headers: { "Content-Type": "application/json" } };
+            const config = { headers: { "Content-Type": "application/json" }, withCredentials: true, };
             const response = await axios.post(`${API_URL}/jobposting`, jobData, config);
             return response.data.job;
         } catch (error: any) {
@@ -37,7 +37,8 @@ export const createJob = createAsyncThunk<Job, { name: string; description: stri
 
 export const getALlJobs = createAsyncThunk<Job[], void>("job/getAllJobs", async (_data, thunkAPI) => {
     try {
-        const response = await axios.get(`${API_URL}/jobs`);
+        const config = { headers: { "Content-Type": "application/json" }, withCredentials: true, };
+        const response = await axios.get(`${API_URL}/jobs`, config);
         return response.data.jobs;
     } catch (error: any) {
         return thunkAPI.rejectWithValue(error.response.data)
@@ -45,7 +46,8 @@ export const getALlJobs = createAsyncThunk<Job[], void>("job/getAllJobs", async 
 })
 export const getALlmyJobs = createAsyncThunk<Job[], void>("job/getAllmyJobs", async (_data, thunkAPI) => {
     try {
-        const response = await axios.get(`${API_URL}/hr/jobs`);
+        const config = { headers: { "Content-Type": "application/json" }, withCredentials: true, };
+        const response = await axios.get(`${API_URL}/hr/jobs`, config);
         console.log(response.data)
         return response.data.jobs
     } catch (error: any) {

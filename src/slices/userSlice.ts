@@ -37,6 +37,7 @@ export const registerUser = createAsyncThunk<User, RegisterData>(
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
+                withCredentials: true,
             };
             const response = await axios.post(`${API_URL}/register`, userData, config);
             return response.data;
@@ -50,7 +51,7 @@ export const loginUser = createAsyncThunk<User, UserCredentials>(
     'user/login',
     async (userData, thunkAPI) => {
         try {
-            const config = { headers: { "Content-Type": "application/json" } };
+            const config = { headers: { "Content-Type": "application/json" }, withCredentials: true, };
             const response = await axios.post(`${API_URL}/login`, userData, config);
             console.log(response)
             return response.data;

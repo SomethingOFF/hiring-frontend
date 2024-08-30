@@ -63,7 +63,8 @@ export const loginUser = createAsyncThunk<User, UserCredentials>(
 
 export const getmyUser = createAsyncThunk<any, void>("/user/me", async (_data, thunkAPI) => {
     try {
-        const response = await axios.get(`${API_URL}/me`);
+        const config = { headers: { "Content-Type": "application/json" }, withCredentials: true, };
+        const response = await axios.get(`${API_URL}/me`, config);
         return response.data.user;
     } catch (error: any) {
         return thunkAPI.rejectWithValue(error.response.data);
